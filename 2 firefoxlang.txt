@@ -1,0 +1,3 @@
+#########Type the following in terminal to remove firefox languages 
+
+sudo apt remove --purge $(apt-cache show firefox-esr-l10n-all | grep Depends | sed -n -e 's/^.*://;s/,//gp')

@@ -1,0 +1,2 @@
+######## aboulte minimum
+sudo apt-get install  k4dirstat usbutils wget  p7zip-full qapt-deb-installer net-tools speedtest-cli  k4dirstat ufw chrony usbutils vlc wget git firejail tilde aria2 uget falkon doublecmd-qt doublecmd-plugins webhttrack vnstat rhash conky-all bmon fim lynx jigdo-file keepassxc openssh-sftp-server kompare ufw tigervnc-scraping-server tigervnc-viewer lighttpd lighttpd-mod-webdav conky-all bluez-firmware vnstat radicale htpasswd default-jre python3-pip flatpak make gcc linux-headers-$(uname -r) build-essential mc
