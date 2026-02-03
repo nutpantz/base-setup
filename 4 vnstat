@@ -1,7 +1,7 @@
 ##################  set up vnstat
 $ vnstat --iflist
-Available interfaces: wlxa0d55a525 
+Available interfaces:55a525 
 
-$ vnstat -i wlxa0d510a525
+$ vnstat -i 510a525
 
 :~$ sudo service vnstat start
