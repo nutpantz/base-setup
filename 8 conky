@@ -1,0 +1,177 @@
+# UBUNTU-CONKY
+# A comprehensive conky script, configured for use on
+# Ubuntu / Debian Gnome, without the need for any external scripts.
+#sudo featherpad /etc/conky/conky.conf
+# Based on conky-jc and the default .conkyrc.
+# INCLUDES:
+# - tail of /var/log/messages 
+# - netstat connections to your computer
+#
+# -- Pengo (conky@pengo.us)
+# wireless equila wlp2s0
+#wlp2s0  =  wifi
+#enp0s31f6   =  ether
+# Create own window instead of using desktop (required in nautilus)
+#own_window_hints undecorated,below,skip_taskbar
+#background no
+own_window true                      
+# run conky in separate window (no flickering)
+#own_window_type override            # 'override' means not under control of window manager ie on background or window
+#own_window_transparent yes          # enable transparency
+#own_window_type normal
+#own_window_transparent yes
+#own_window_argb_visual yes
+#own_window_class override
+#own_window_type conky
+#own_window_argb_value 0
+#in a window or as desktop background
+#own_window_hints undecorated,sticky,skip_taskbar,skip_pager,below
+# Use double bufering (reduces flicker, may not work for everyone)
+double_buffer yes
+show_graph_scale no
+short_units yes
+format_human_readable yes
+# fiddle with window
+#use_spacer yes
+use_xft yes
+# Update interval in seconds
+update_interval 2.5
+# Minimum size of text area
+minimum_size 160 750
+maximum_width 240
+# Draw shades?
+draw_shades yes
+# Text stuff
+draw_outline no # amplifies text if yes
+draw_borders n0
+uppercase no # set to yes if you want all text to be in uppercase
+# Stippled borders?
+stippled_borders 8
+# border margins
+# border_margin 3
+# border width
+border_width 1
+#Default colors and also border colors, grey90 == #e5e5e5
+#default_color white
+#default_shade_color black
+#default_outline_color white
+#own_window_colour brown
+# Text alignment, other possible values are commented
+#alignment top_left
+alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+# Gap between borders of screen and text
+gap_x 5
+gap_y 5
+# stuff after 'TEXT' will be formatted on screen
+override_utf8_locale no
+xftfont Terminus:size=10
+xftalpha 0.8
+TEXT
+${offset 0}${color slate grey}${time %a, } ${color }${time %e %B %G}
+${offset 0}${color slate grey}${time %Z,    }${color }${time %H:%M:%S}
+${offset 0}${color slate grey}UpTime: ${color }$uptime
+#${offset 0}${color slate grey}Kern:${color }$kernel
+${offset 0}${color slate grey}CPU:${color } $cpu% ${acpitemp}C
+${offset 0}${cpugraph 20,220}
+${offset 0}${cpubar 3,220}
+#
+${offset 0}${color slate grey}Load: ${color }$loadavg
+${offset 0}${color slate grey}Processes: ${color }$processes  
+${offset 0}${color slate grey}Running:   ${color }$running_processes
+${offset 0}${color slate grey}Highest CPU:
+${offset 0}${color #ddaa00} ${top name 1}${top_mem cpu 1}
+${offset 0}${color lightgrey} ${top name 2}${top cpu 2}
+#mem
+${offset 0}${color slate grey}Highest MEM:
+${offset 0}${color #ddaa00} ${top_mem name 1}${top_mem mem 1}
+${offset 0}${color lightgrey} ${top_mem name 2}${top_mem mem 2}
+#bluetooth
+${color  #16d0bb}${execi 15 /home/nutz/bluetoothlist.sh} ${color white}
+#free
+#DISK
+#3${voffset 1}${color7}${font}${font Dejavu Sans:bold:size=10}${alignr}          Free     Used     Size   % Free    
+DISK${voffset 1}${color7}${alignr}              Free     Used         Size   % Free     
+Home:${alignr}$color${fs_free /home}${color lightgrey} ${fs_used /home}/$color ${fs_size /home} - ${fs_free_perc /home}%    
+${voffset 6}${fs_bar 3,220 /home}
+Crypt:${alignr}$color ${fs_free /mnt/crypt/}${color lightgrey} ${fs_used /mnt/crypt/} /$color ${fs_size /mnt/crypt/} - ${fs_free_perc /mnt/crypt/}%    
+${voffset 6}${fs_bar 3,220 /mnt/crypt/}
+#ram /mnt/crypt
+${offset 0}${color slate grey}MEM:  ${color } $memperc% $mem/$memmax
+${offset 0}${membar 3,220}
+${offset 0}${color slate grey}SWAP: ${color }$swapperc% $swap/$swapmax
+${offset 0}${swapbar 3,220}
+#end mem
+#
+#
+# network start
+Network ${alignr}${color green}Wi-Fi    
+#${alignr} ${color #ffcb48}Wi-Fi ${hr 1}
+${color lightgrey}Wireless signal: $color${wireless_link_qual wlp2s0}%
+# external ip
+${color grey}External IP: $color${execi 1000  wget -q -O- http://ipecho.net/plain; echo}
+${color lightgrey}wifi address: $color${addr wlp2s0}
+${color lightgrey}lan address: $color${addr enp0s31f6}
+# VPN INFO graph
+${color green}${if_up tun0}tun0 VPN ${hr}Down ${downspeed tun0} KB/s ${alignr}Up ${upspeed tun0} KB/s  
+${downspeedgraph tun0 25,100} ${alignr}${upspeedgraph tun0 25,100} Total ${totaldown tun0} ${alignr}Total ${totalup tun0}${endif}  
+# wifi INFO graph 1
+${color lightgrey}${if_up wlp2s0}wlp2s0 wifi ${hr}  Down ${downspeed wlp2s0} KB/s ${alignr}Up ${upspeed wlp2s0} KB/s  ${downspeedgraph wlp2s0 25,100} ${alignr}${upspeedgraph wlp2s0 25,100} Total ${totaldown wlp2s0} ${alignr}Total ${totalup wlp2s0}${endif}  
+# cable INFO graph 1  enp0s31f6
+${color lightgrey}${if_up enp0s31f6}enp0s31f6 eth ${hr}  
+Down ${downspeed enp0s31f6} KB/s ${alignr}Up ${upspeed enp0s31f6} KB/s  
+${downspeedgraph enp0s31f6 25,100} ${alignr}${upspeedgraph enp0s31f6 25,100}    
+Total ${totaldown enp0s31f6} ${alignr}Total ${totalup enp0s31f6}${endif}  
+#down today info
+${color white}${voffset 0}DOWN Today:
+#                      
+#${if_existing /sys/class/net/wlp2s0/operstate up}${offset 0}wlx90: ${execi 60 vnstat -i wlp2s0 | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i wlp2s0 | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}${endif}
+#${if_up tun0}${offset 0}tun0: ${execi 60 vnstat -i tun0 | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i tun0 | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}${endif}
+#
+#vnstat data down monthy
+#enp0s31f6
+#${offset 0}cyberghost: ${execi 60 vnstat -i cyberghost | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i cyberghost | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}
+${if_up wlan0}${offset 0}wlan0: ${execi 60 vnstat -i wlan0 | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i wlan0 | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}${endif}
+${offset 0}wlx90: ${execi 60 vnstat -i wlp2s0 | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i wlp2s0 | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}
+${offset 0}enp0s: ${execi 60 vnstat -i enp0s31f6 | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i enp0s31f6 | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}
+${offset 0}tun0: ${execi 60 vnstat -i tun0 | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i tun0 | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}
+Monthy total for all ${execi 3600 vnstat -m -i wlan0 | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}
+# drive trasfer sppeds
+${color green} Disk I/O $alignr ${diskio}
+${offset 0}${diskiograph 20,220}
+#${if_match "${exec bluetoothctl info 20:7A:03:27:01:35 | grep -o 'Connected: yes'}" == "Connected: yes"} ${color green}KEYBOARD Connected! ${else} ${color red}Keyboard Disconnected! ${endif}
+#${if_match "${exec bluetoothctl info D0:27:4F:54:F3:64 | grep -o 'Connected: yes'}" == "Connected: yes"} ${color green}HEADPHONES Connected! ${else} ${color red}Headphone Disconnected! ${endif}
+#${if_match "${exec bluetoothctl info D0:27:4F:54:F3:64 | grep -o 'Connected: yes'}" == "Connected: yes"} ${color green}HEADPHONES Connected! ${else} ${color red}${blink Headphone Disconnected!} ${endif}
+#drive trasfer sppeds
+#${color lightgreen}Disk I/O ${diskio}${hr 1}
+#${diskiograph 16,000 ffffff 0000ff}
+#${offset 0}${diskiograph 15,230}
+#${color lightgrey}Download speed: $color${downspeedf wlan0} Kb/sec
+#${downspeedgraph wlan0}
+#${color red}Downloaded: $color${totaldown wlan0} $alignr ${color green}Uploaded: $color${totalup wlan0}
+#${color #ffcb48}Ethernet ${hr 1}
+#${color lightgrey}IP address: $alignr$color${addr enp7s0}
+#${color lightgrey}Download speed: $color${downspeedf enp7s0} Kb/sec
+#${downspeedgraph enp7s0}
+#${color red}Downloaded: $color${totaldown enp7s0} $alignr ${color green}Uploaded: $color${totalup enp7s0}
+#network info dynamicly changing
+#${color #ffcb48}${if_existing /sys/class/net/enp0s31f6/operstate up}enp0s31f6 ${hr}
+#${color lightgrey} Down3 ${downspeed enp0s31f6} KB/s ${alignr}Up ${upspeed enp0s31f6} KB/s
+#${downspeedgraph enp0s31f6 5,100} ${alignr}${upspeedgraph enp0s31f6 5,100}
+#Total ${totaldown enp0s31f6} ${alignr}Total ${totalup enp0s31f6}
+#
+#${endif}${if_existing /sys/class/net/wlan0/operstate up}wlan0 ${hr}
+#Down1 ${downspeed wlan0} KB/s ${alignr}Up ${upspeed wlan0} KB/s
+#${downspeedgraph wlan0 25,100} ${alignr}${upspeedgraph wlan0 25,100}
+#Total ${totaldown wlan0} ${alignr}Total ${totalup wlan0}
+#${endif}
+#${if_up wlp2s0}wlp2s0
+#Down2 ${downspeed wlp2s0} KB/s ${alignr}Up ${upspeed wlp2s0} KB/s
+#${downspeedgraph wlp2s0 25,100} ${alignr}${upspeedgraph wlp2s0 25,100}
+#Total ${totaldown wlp2s0} ${alignr}Total ${totalup wlp2s0}${endif}
+#${endif}${if_up usb0}usb0
+#Down2 ${downspeed usb0} KB/s ${alignr}Up ${upspeed usb0} KB/s
+#${downspeedgraph usb0 25,100} ${alignr}${upspeedgraph usb0 25,100}
+#Total ${totaldown usb0} ${alignr}Total ${totalup usb0}${endif}
+
