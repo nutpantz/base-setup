@@ -1,5 +1,5 @@
 ######## aboulte minimum
-sudo apt-get install  k4dirstat usbutils wget  p7zip-full qapt-deb-installer net-tools speedtest-cli  k4dirstat ufw chrony usbutils vlc wget git firejail tilde aria2 uget doublecmd-qt doublecmd-plugins webhttrack vnstat rhash conky-all bmon  keepassxc kompare ufw tigervnc-scraping-server krdc conky-all bluez-firmware vnstat htpasswd default-jre python3-pip make gcc linux-headers-$(uname -r) build-essential mc openssh-client
+sudo apt-get install  k4dirstat usbutils wget  p7zip-full qapt-deb-installer net-tools speedtest-cli  k4dirstat ufw chrony usbutils vlc wget git firejail tilde aria2 uget doublecmd-qt doublecmd-plugins webhttrack vnstat rhash conky-all bmon  keepassxc kompare ufw tigervnc-scraping-server krdc conky-all bluez-firmware vnstat htpasswd default-jre python3-pip make gcc linux-headers-$(uname -r) build-essential mc openssh-client efte
 ######## extended
 sudo apt install speedtest-cli webhttrack
 ######## server
