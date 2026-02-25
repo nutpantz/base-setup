@@ -1,0 +1,10 @@
+editing configuration files like /etc/default/grub and regenerating the GRUB configuration.
+ 
+ video=HDMI-1:1360x768:D video=HDMI-2:1920x1080:D
+ 
+ force the HDMI-1 output to be always enabled (the :D letter at the end does that), and to always use a particular resolution that was suited to my display;
+
+GRUB_CMDLINE_LINUX_DEFAULT="ipv6.disable=1 quiet video=HDMI-1:me video1920x1080=HDMI-2:1920x1080me"
+GRUB_CMDLINE_LINUX="ipv6.disable=1 video=HDMI-1:1920x1080me video=HDMI-2:1920x1080me"
+
+Run sudo update-grub to apply the changes.
