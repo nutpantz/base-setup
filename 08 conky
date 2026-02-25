@@ -1,16 +1,17 @@
+#sudo featherpad /etc/conky/conky.conf
 # UBUNTU-CONKY
 # A comprehensive conky script, configured for use on
 # Ubuntu / Debian Gnome, without the need for any external scripts.
-#sudo featherpad /etc/conky/conky.conf
+#
 # Based on conky-jc and the default .conkyrc.
 # INCLUDES:
 # - tail of /var/log/messages 
 # - netstat connections to your computer
 #
 # -- Pengo (conky@pengo.us)
-# wireless equila wlp2s0
-#wlp2s0  =  wifi
-#enp0s31f6   =  ether
+# wireless equila wifistuff
+#wifistuff  =  wifi
+#ethostuff   =  ether
 # Create own window instead of using desktop (required in nautilus)
 #own_window_hints undecorated,below,skip_taskbar
 #background no
@@ -108,33 +109,33 @@ ${offset 0}${swapbar 3,220}
 # network start
 Network ${alignr}${color green}Wi-Fi    
 #${alignr} ${color #ffcb48}Wi-Fi ${hr 1}
-${color lightgrey}Wireless signal: $color${wireless_link_qual wlp2s0}%
+${color lightgrey}Wireless signal: $color${wireless_link_qual wifistuff}%
 # external ip
 ${color grey}External IP: $color${execi 1000  wget -q -O- http://ipecho.net/plain; echo}
-${color lightgrey}wifi address: $color${addr wlp2s0}
-${color lightgrey}lan address: $color${addr enp0s31f6}
+${color lightgrey}wifi address: $color${addr wifistuff}
+${color lightgrey}lan address: $color${addr ethostuff}
 # VPN INFO graph
 ${color green}${if_up tun0}tun0 VPN ${hr}Down ${downspeed tun0} KB/s ${alignr}Up ${upspeed tun0} KB/s  
 ${downspeedgraph tun0 25,100} ${alignr}${upspeedgraph tun0 25,100} Total ${totaldown tun0} ${alignr}Total ${totalup tun0}${endif}  
 # wifi INFO graph 1
-${color lightgrey}${if_up wlp2s0}wlp2s0 wifi ${hr}  Down ${downspeed wlp2s0} KB/s ${alignr}Up ${upspeed wlp2s0} KB/s  ${downspeedgraph wlp2s0 25,100} ${alignr}${upspeedgraph wlp2s0 25,100} Total ${totaldown wlp2s0} ${alignr}Total ${totalup wlp2s0}${endif}  
-# cable INFO graph 1  enp0s31f6
-${color lightgrey}${if_up enp0s31f6}enp0s31f6 eth ${hr}  
-Down ${downspeed enp0s31f6} KB/s ${alignr}Up ${upspeed enp0s31f6} KB/s  
-${downspeedgraph enp0s31f6 25,100} ${alignr}${upspeedgraph enp0s31f6 25,100}    
-Total ${totaldown enp0s31f6} ${alignr}Total ${totalup enp0s31f6}${endif}  
+${color lightgrey}${if_up wifistuff}wifistuff wifi ${hr}  Down ${downspeed wifistuff} KB/s ${alignr}Up ${upspeed wifistuff} KB/s  ${downspeedgraph wifistuff 25,100} ${alignr}${upspeedgraph wifistuff 25,100} Total ${totaldown wifistuff} ${alignr}Total ${totalup wifistuff}${endif}  
+# cable INFO graph 1  ethostuff
+${color lightgrey}${if_up ethostuff}ethostuff eth ${hr}  
+Down ${downspeed ethostuff} KB/s ${alignr}Up ${upspeed ethostuff} KB/s  
+${downspeedgraph ethostuff 25,100} ${alignr}${upspeedgraph ethostuff 25,100}    
+Total ${totaldown ethostuff} ${alignr}Total ${totalup ethostuff}${endif}  
 #down today info
 ${color white}${voffset 0}DOWN Today:
 #                      
-#${if_existing /sys/class/net/wlp2s0/operstate up}${offset 0}wlx90: ${execi 60 vnstat -i wlp2s0 | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i wlp2s0 | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}${endif}
+#${if_existing /sys/class/net/wifistuff/operstate up}${offset 0}wlx90: ${execi 60 vnstat -i wifistuff | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i wifistuff | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}${endif}
 #${if_up tun0}${offset 0}tun0: ${execi 60 vnstat -i tun0 | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i tun0 | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}${endif}
 #
 #vnstat data down monthy
-#enp0s31f6
+#ethostuff
 #${offset 0}cyberghost: ${execi 60 vnstat -i cyberghost | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i cyberghost | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}
 ${if_up wlan0}${offset 0}wlan0: ${execi 60 vnstat -i wlan0 | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i wlan0 | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}${endif}
-${offset 0}wlx90: ${execi 60 vnstat -i wlp2s0 | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i wlp2s0 | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}
-${offset 0}enp0s: ${execi 60 vnstat -i enp0s31f6 | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i enp0s31f6 | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}
+${offset 0}wlx90: ${execi 60 vnstat -i wifistuff | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i wifistuff | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}
+${offset 0}enp0s: ${execi 60 vnstat -i ethostuff | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i ethostuff | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}
 ${offset 0}tun0: ${execi 60 vnstat -i tun0 | grep "today" | awk '{print $2 $3}'}${goto 130}month ${execi 3600 vnstat -m -i tun0 | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}
 Monthy total for all ${execi 3600 vnstat -m -i wlan0 | grep "$(LC_ALL=C date "+%Y-%m")" | awk '{print $8 $9}'}${alignr}
 # drive trasfer sppeds
@@ -156,20 +157,20 @@ ${offset 0}${diskiograph 20,220}
 #${downspeedgraph enp7s0}
 #${color red}Downloaded: $color${totaldown enp7s0} $alignr ${color green}Uploaded: $color${totalup enp7s0}
 #network info dynamicly changing
-#${color #ffcb48}${if_existing /sys/class/net/enp0s31f6/operstate up}enp0s31f6 ${hr}
-#${color lightgrey} Down3 ${downspeed enp0s31f6} KB/s ${alignr}Up ${upspeed enp0s31f6} KB/s
-#${downspeedgraph enp0s31f6 5,100} ${alignr}${upspeedgraph enp0s31f6 5,100}
-#Total ${totaldown enp0s31f6} ${alignr}Total ${totalup enp0s31f6}
+#${color #ffcb48}${if_existing /sys/class/net/ethostuff/operstate up}ethostuff ${hr}
+#${color lightgrey} Down3 ${downspeed ethostuff} KB/s ${alignr}Up ${upspeed ethostuff} KB/s
+#${downspeedgraph ethostuff 5,100} ${alignr}${upspeedgraph ethostuff 5,100}
+#Total ${totaldown ethostuff} ${alignr}Total ${totalup ethostuff}
 #
 #${endif}${if_existing /sys/class/net/wlan0/operstate up}wlan0 ${hr}
 #Down1 ${downspeed wlan0} KB/s ${alignr}Up ${upspeed wlan0} KB/s
 #${downspeedgraph wlan0 25,100} ${alignr}${upspeedgraph wlan0 25,100}
 #Total ${totaldown wlan0} ${alignr}Total ${totalup wlan0}
 #${endif}
-#${if_up wlp2s0}wlp2s0
-#Down2 ${downspeed wlp2s0} KB/s ${alignr}Up ${upspeed wlp2s0} KB/s
-#${downspeedgraph wlp2s0 25,100} ${alignr}${upspeedgraph wlp2s0 25,100}
-#Total ${totaldown wlp2s0} ${alignr}Total ${totalup wlp2s0}${endif}
+#${if_up wifistuff}wifistuff
+#Down2 ${downspeed wifistuff} KB/s ${alignr}Up ${upspeed wifistuff} KB/s
+#${downspeedgraph wifistuff 25,100} ${alignr}${upspeedgraph wifistuff 25,100}
+#Total ${totaldown wifistuff} ${alignr}Total ${totalup wifistuff}${endif}
 #${endif}${if_up usb0}usb0
 #Down2 ${downspeed usb0} KB/s ${alignr}Up ${upspeed usb0} KB/s
 #${downspeedgraph usb0 25,100} ${alignr}${upspeedgraph usb0 25,100}
