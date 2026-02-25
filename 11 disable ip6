@@ -1,0 +1,111 @@
+#######test
+ip a | grep inet6
+  
+  inet6 ::1/128 scope host noprefixroute 
+    inet6 fe80::39ed:b3e1:cc2f:2ff6/64 scope link noprefixroute 
+---------------------------------------------
+  sudo sysctl net.ipv6.conf.all.disable_ipv6  
+
+If you see 1 in the output of the above command, the IPv6 is not running on your device anymore as the 1 means IPv6 is disabled, whereas the 0 means IPv6 is enabled.
+--------------------------------------------------
+
+############ disable
+Step 1: First, open the GRUB configuration file on Debian using the following command:
+sudo featherpad /etc/default/grub
+
+Step 2: Next, find the below-mentioned lines in the file:
+GRUB_CMDLINE_LINUX_DEFAULT="quiet"
+
+GRUB_CMDLINE_LINUX=""
+
+Replace these lines with the following lines in the file and save the file:
+GRUB_CMDLINE_LINUX_DEFAULT="ipv6.disable=1 quiet splash"
+
+GRUB_CMDLINE_LINUX="ipv6.disable=1"
+
+
+
+sudo update-grub
+
+###check again
+ip a | grep inet6
+--------------------------------------------------
+
+
+
+
+
+Method 1: Disable the IPv6 on Debian 12 Using the sysctl Configuration
+
+The first method of disabling the IPv6 on Debian 12 is by making the changes in the systctl configuration by the below-mentioned steps. 
+
+Step 1: Display the Current Status of IPv6
+
+To find out the current status of the IPv6, run the command:
+$ sudo sysctl net.ipv6.conf.all.disable_ipv6
+
+The “0” displaying the IPv6 is enabled. 
+
+Step 2: Open the sysctl Configuration File
+
+Open the sysctl configuration file with the help of the text editor, in our case, the nano text editor is being used to open the file:
+$ sudo nano /etc/sysctl.conf
+
+Step 3: Edit the sysctl Configuration File
+
+Scroll down the file and copy-paste the below-mentioned lines at the end of the file to disable the IPv6 permanently:
+# Disabling the IPv6
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+
+Save the changes with the CTRL+S and exit the nano text editor. 
+
+ sudo update-initramfs -u
+ 
+ check with 
+  sudo sysctl net.ipv6.conf.all.disable_ipv6
+  
+  should report
+  
+  1
+  
+  and
+  ip a | grep inet6
+  should report nothing
+
+ -------------------------------------------------------------------
+ 
+ 
+
+Method 2: Disable the IPv6 on Debian 12 by Blacklisting its Kernel Module
+
+Another method of disabling the IPv6 on Debian 12 is by blacklisting the IPv6 Kernel Module following the below-mentioned steps.
+
+Step 1: Open the Blacklist Configuration File
+
+First, open the Blacklisting configuration file using the nano text editor:
+$ sudo nano /etc/modprobe.d/blacklist-ipv6.conf
+
+Step 2: Edit the Blacklist Configuration File
+
+Blacklist the IPv6 Kernel module so it will not load and this can be done by adding the below-mentioned line in the blacklisting file:
+blacklist ipv6
+
+Step 3: Apply the Changes
+
+Now apply the changes made in the blacklisting configuration file by running the command:
+$ sudo update-initramfs -u
+
+sudo reboot
+Step 5: Verify the Changes
+
+To verify the changes in the blacklist configuration file, run the command:
+$ lsmod | grep ipv6
+
+--------------------------------------------------------
+
+
+
+
+
