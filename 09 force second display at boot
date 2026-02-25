@@ -8,3 +8,27 @@ GRUB_CMDLINE_LINUX_DEFAULT="ipv6.disable=1 quiet video=HDMI-1:me video1920x1080=
 GRUB_CMDLINE_LINUX="ipv6.disable=1 video=HDMI-1:1920x1080me video=HDMI-2:1920x1080me"
 
 Run sudo update-grub to apply the changes.
+
+
+DRM drivers also add options to enable or disable outputs:
+
+'e' will force the display to be enabled, i.e. it will override the detection
+if a display is connected. 'D' will force the display to be enabled and use
+digital output. This is useful for outputs that have both analog and digital
+signals (e.g. HDMI and DVI-I). For other outputs it behaves like 'e'. If 'd'
+is specified the output is disabled.
+
+You can additionally specify which output the options matches to.
+To force the VGA output to be enabled and drive a specific mode say::
+
+    video=VGA-1:1280x1024@60me
+
+Specifying the option multiple times for different ports is possible, e.g.::
+
+    video=LVDS-1:d video=HDMI-1:D
+
+Options can also be passed after the mode, using commas as separator.
+
+       Sample usage: 720x480,rotate=180 - 720x480 mode, rotated by 180 degrees
+
+
