@@ -8,3 +8,6 @@ warning this might ruin your system or start WW3
 download with
 
 git clone https://github.com/nutpantz/base-setup
+ ```
+   git clone https://github.com/nutpantz/base-setup
+   ```
