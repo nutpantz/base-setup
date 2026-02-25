@@ -3,12 +3,6 @@
 # A comprehensive conky script, configured for use on
 # Ubuntu / Debian Gnome, without the need for any external scripts.
 #
-# Based on conky-jc and the default .conkyrc.
-# INCLUDES:
-# - tail of /var/log/messages 
-# - netstat connections to your computer
-#
-# -- Pengo (conky@pengo.us)
 # wireless equila wifistuff
 #wifistuff  =  wifi
 #ethostuff   =  ether
