@@ -4,4 +4,5 @@ Available interfaces:55a525
 
 $ vnstat -i 510a525
 
-:~$ sudo service vnstat start
+systemctl enable vnstat
+systemctl start vnstat
